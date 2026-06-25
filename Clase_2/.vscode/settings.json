@@ -1,0 +1,30 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.extensionActivationMode": "always",
+  "idf.openOcdConfigs": [
+    "board/esp32-wrover-kit-3.3v.cfg"
+  ],
+  "idf.currentSetup": "C:\\esp\\v6.0.1\\esp-idf",
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32"
+  },
+  "clangd.path": "C:\\Espressif\\tools\\esp-clang\\esp-20.1.1_20250829\\esp-clang\\bin\\clangd.exe",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=d:\\Chris ChaV\\ESP32-Maverick\\Clase_2\\build"
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#033333",
+    "titleBar.activeBackground": "#054848",
+    "titleBar.activeForeground": "#E9FEFE",
+    "titleBar.inactiveBackground": "#033333",
+    "titleBar.inactiveForeground": "#E9FEFE",
+    "statusBar.background": "#033333",
+    "statusBar.foreground": "#E9FEFE",
+    "statusBar.debuggingBackground": "#033333",
+    "statusBar.debuggingForeground": "#E9FEFE",
+    "statusBar.noFolderBackground": "#033333",
+    "statusBar.noFolderForeground": "#E9FEFE"
+  }
+}
