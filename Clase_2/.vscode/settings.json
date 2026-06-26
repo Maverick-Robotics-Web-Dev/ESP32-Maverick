@@ -12,7 +12,7 @@
   "clangd.arguments": [
     "--background-index",
     "--query-driver=**",
-    "--compile-commands-dir=d:\\Chris ChaV\\ESP32-Maverick\\Clase_2\\build"
+    "--compile-commands-dir=e:\\Developer\\ESP32-Maverick\\Clase_2\\build"
   ],
   "workbench.colorCustomizations": {
     "activityBar.background": "#033333",

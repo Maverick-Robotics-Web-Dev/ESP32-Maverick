@@ -21,14 +21,14 @@ void app_main(void)
         //Escribir sobre el pin 2 logico
         gpio_set_level(GPIO_NUM_2,1);
         gpio_set_level(GPIO_NUM_5,0);
-        printf('Led rojo encendido\n');
+        printf("Led rojo encendido\n");
 
         //Retardo
         vTaskDelay(pdMS_TO_TICKS(500));
 
         gpio_set_level(GPIO_NUM_2,0);
         gpio_set_level(GPIO_NUM_5,1);
-        printf('Led azul encendido\n');
+        printf("Led azul encendido\n");
 
         //Retardo
         vTaskDelay(pdMS_TO_TICKS(500));
@@ -55,11 +55,11 @@ void GPIO_Init(void)
     // Evaluar si se configuro correctamente los pines
     if (gpio_config(&gpioConfig)==ESP_OK)
     {
-        printf('Configuracion exitosa\n');
+        printf("Configuracion exitosa\n");
     }
     else
     {
-        printf('Configuracion GPIO fallida\n');
+        printf("Configuracion GPIO fallida\n");
     }
     
 }
