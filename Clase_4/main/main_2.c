@@ -18,16 +18,11 @@ void GPTimerInit(void);
 
 bool IRAM_ATTR TMR0AlarmEventCb(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx )
 {
-    flagTime=!flagTime;
+    flagTime=true;
 
-    if(flagTime==true)
-    {
-        gpio_set_level(GPIO_NUM_18,1);
-    }
-    else
-    {
-        gpio_set_level(GPIO_NUM_18,0);
-    }
+    gpio_set_level(GPIO_NUM_18,0);
+    gptimer_stop(TMR0);
+    gptimer_disable(TMR0);
 
     return true;
 }
@@ -39,10 +34,25 @@ void app_main(void)
 
     while (1)
     {
-        gpio_set_level(GPIO_NUM_19,1);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        gpio_set_level(GPIO_NUM_19,0);
-        vTaskDelay(pdMS_TO_TICKS(1000));
+
+        if(gpio_get_level(GPIO_NUM_26)==0)
+        {
+            vTaskDelay(pdMS_TO_TICKS(1000));
+            printf("Encender sistema de Alarma Activado\n");
+            gpio_set_level(GPIO_NUM_18,1);
+            printf("Sistema de conteo iniciado\n");
+            gptimer_enable(TMR0); // Habilitar el Timer
+            gptimer_start(TMR0); // Iniciar el Timer
+        }
+
+        if(flagTime==true)
+        {
+            flagTime=false;
+            printf("Tiempo Vencido\n");
+            printf("Sistema de Alarma Desactivado\n");
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 
 }
@@ -50,9 +60,8 @@ void app_main(void)
 void GPIOInit(void){
 
     gpio_set_direction(GPIO_NUM_18,GPIO_MODE_OUTPUT);
-    gpio_set_direction(GPIO_NUM_19,GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_26,GPIO_MODE_INPUT);
     gpio_set_level(GPIO_NUM_18,0);
-    gpio_set_level(GPIO_NUM_19,0);
 
 
     
@@ -77,10 +86,10 @@ void GPTimerInit(void){
     };
 
     gptimer_register_event_callbacks(TMR0, &eventAlarmCb, NULL); // Registrar funcion callback
-    gptimer_enable(TMR0); // Habilitar el Timer
+    
 
     gptimer_alarm_config_t alarmConfig={
-        .alarm_count=100000,// 100000 pulsos se genera 100ms
+        .alarm_count=10000000,// pulsos para genera 10seg
         .reload_count=0,
         .flags.auto_reload_on_alarm=true
     };
@@ -88,6 +97,6 @@ void GPTimerInit(void){
     // Establecer la configuracion de la alarma
     gptimer_set_alarm_action(TMR0, &alarmConfig);
 
-    // Iniciar el Timer
-    gptimer_start(TMR0);
+    
+    
 }
